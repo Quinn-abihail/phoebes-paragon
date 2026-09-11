@@ -58,7 +58,7 @@
     object-fit:cover;
     object-position:center 30%;
     display:block;
-    opacity:0.55;
+    opacity:1;
   }
   .flyer-banner .overlay{
     position:absolute;
@@ -69,18 +69,28 @@
     text-align:center;
     flex-direction:column;
     gap:6px;
-    padding:0 20px;
-    background:linear-gradient(90deg, rgba(31,16,51,0.75), rgba(11,11,13,0.35));
+    padding:14px 20px;
+  }
+  .flyer-banner .overlay-panel{
+    background:rgba(11,11,13,0.62);
+    padding:12px 24px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    border:1px solid rgba(232,199,102,0.4);
   }
   .flyer-banner .overlay .brand{
     font-family:'Fraunces', serif;
     font-size:clamp(1.3rem, 3.4vw, 2.1rem);
     color:var(--gold-300);
     font-weight:700;
+    text-shadow:0 2px 8px rgba(0,0,0,0.8);
   }
   .flyer-banner .overlay .tag{
     font-size:clamp(0.75rem, 1.6vw, 0.95rem);
     color:var(--paper-100);
+    text-shadow:0 1px 4px rgba(0,0,0,0.8);
   }
   .flyer-banner .overlay .cta{
     margin-top:4px;
@@ -674,9 +684,11 @@
 <div class="flyer-banner">
   <img src="flyer_landscape.png" width="1152" height="590" alt="Phoebe's Paragon — Personal Shopper and Homemade Food Delivery">
   <div class="overlay">
-    <div class="brand">Phoebe's Paragon</div>
-    <div class="tag">food is home — personal chef &amp; personal shopper</div>
-    <a class="cta" href="#booking">Book Now &amp; Taste the Home!</a>
+    <div class="overlay-panel">
+      <div class="brand">Phoebe's Paragon</div>
+      <div class="tag">food is home — personal chef &amp; personal shopper</div>
+      <a class="cta" href="#booking">Book Now &amp; Taste the Home!</a>
+    </div>
   </div>
 </div>
 
