@@ -9,15 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --green-950:#0F2A1E;
-    --green-800:#1D4633;
-    --green-700:#28593F;
-    --gold-500:#C79A2B;
-    --gold-300:#E4C466;
+    --green-950:#1F1033;
+    --green-800:#3B1F5E;
+    --green-700:#4A2874;
+    --gold-500:#C9A227;
+    --gold-300:#E8C766;
     --paper-100:#F6F0E3;
     --paper-200:#EFE6D2;
     --ink-900:#1E1A10;
-    --rust-600:#B14A28;
+    --rust-600:#28437A;
+    --black-950:#0B0B0D;
     --line: rgba(246,240,227,0.18);
     --measure: 62ch;
   }
@@ -45,10 +46,23 @@
     padding:0 clamp(20px,5vw,56px);
   }
 
+  /* ---------- Flyer banner ---------- */
+  .flyer-banner{
+    background: linear-gradient(180deg, var(--green-950), var(--black-950));
+    display:flex;
+    justify-content:center;
+    padding:0;
+  }
+  .flyer-banner img{
+    width:100%;
+    max-width:480px;
+    display:block;
+  }
+
   /* ---------- Nav ---------- */
   .nav{
     position:sticky; top:0; z-index:20;
-    background:rgba(15,42,30,0.92);
+    background:rgba(31,16,51,0.92);
     backdrop-filter:blur(6px);
     border-bottom:1px solid var(--line);
   }
@@ -213,19 +227,19 @@
     padding:clamp(32px,4vw,48px);
   }
   .panel-chef{
-    background:var(--green-950);
+    background:var(--rust-600);
     color:var(--paper-100);
   }
   .panel-shop{
-    background:var(--paper-100);
-    color:var(--ink-900);
+    background:var(--green-950);
+    color:var(--paper-100);
     border-left:1px solid rgba(30,26,16,0.14);
   }
   .panel .tag{
     font-size:0.85rem;
     color:var(--gold-500);
   }
-  .panel-chef .tag{ color:var(--gold-300); }
+  .panel-chef .tag, .panel-shop .tag{ color:var(--gold-300); }
   .panel h3{
     font-size:1.7rem;
     margin-top:10px;
@@ -234,7 +248,7 @@
     margin-top:14px;
     max-width:38ch;
   }
-  .panel-chef p{ color:var(--paper-200); }
+  .panel-chef p, .panel-shop p{ color:var(--paper-200); }
   .panel ul{
     margin:20px 0 0;
     padding:0;
@@ -245,7 +259,6 @@
     border-top:1px solid var(--line);
     font-size:0.95rem;
   }
-  .panel-shop li{ border-top:1px solid rgba(30,26,16,0.14); }
   .panel li:first-of-type{ border-top:none; }
 
   /* ---------- Pricing ---------- */
@@ -504,7 +517,7 @@
     border:none;
     display:flex; align-items:center; justify-content:center;
     cursor:pointer;
-    box-shadow:0 6px 20px rgba(15,42,30,0.35);
+    box-shadow:0 6px 20px rgba(31,16,51,0.35);
     transition:background 0.2s ease, transform 0.15s ease;
   }
   .chat-toggle:hover, .chat-toggle:focus-visible{ background:var(--gold-300); }
@@ -518,7 +531,7 @@
     max-width:calc(100vw - 32px);
     background:var(--paper-100);
     border:1px solid rgba(30,26,16,0.18);
-    box-shadow:0 12px 32px rgba(15,42,30,0.28);
+    box-shadow:0 12px 32px rgba(31,16,51,0.28);
     display:none;
     flex-direction:column;
     overflow:hidden;
@@ -623,6 +636,10 @@
 </style>
 </head>
 <body>
+
+<div class="flyer-banner">
+  <img src="flyer.png" alt="Phoebe's Paragon — food is home. Personal Shopper and Homemade Food Delivery">
+</div>
 
 <nav class="nav">
   <div class="wrap">
@@ -831,6 +848,10 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l16 16M20 4L4 20"/></svg>
               X
             </a>
+            <a href="https://wa.me/2347014512635" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.5c.3 3 2.5 5.2 5.5 5.5"/></svg>
+              WhatsApp
+            </a>
           </div>
         </div>
       </div>
@@ -854,6 +875,10 @@
       <a class="social-link" href="https://x.com/phoebe2_phoebe" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l16 16M20 4L4 20"/></svg>
         X <span class="handle">@phoebe2_phoebe</span>
+      </a>
+      <a class="social-link" href="https://wa.me/2347014512635" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.5c.3 3 2.5 5.2 5.5 5.5"/></svg>
+        WhatsApp <span class="handle">0701 451 2635</span>
       </a>
     </div>
   </div>
@@ -975,7 +1000,7 @@
       services: "We offer two services: a Chef who cooks and delivers homemade meals — either as a Personal service (your everyday breakfast, lunch, dinner) or for an Event — and a Personal Shopper who handles groceries, gifts, and errands for you. You can book any of these in the Book section of this site.",
       pricing: "For Personal Shopper & Cook orders, our service fee scales with the value of goods handled: 15% up to ₦150,000, rising to 35% for orders up to ₦1,000,000 — plus 7.5% VAT on top. Check the Pricing section on this page for the full table.",
       booking: "You can book directly on this site — scroll to the Book section, pick Chef and/or Personal Shopper, fill in your details, and it'll generate a summary you can send us on Instagram, TikTok, or X.",
-      contact: "Of course — the fastest way to reach a real person is Instagram (@phoebe.paragon). You can also find us on TikTok and X (@phoebe2_phoebe), all linked in the Contact section below.",
+      contact: "Of course — the fastest way to reach a real person is WhatsApp (0701 451 2635) or Instagram (@phoebe.paragon). You can also find us on TikTok and X (@phoebe2_phoebe), all linked in the Contact section below.",
       fallback: "I'm just a simple assistant so I might not have caught that. Try asking about our services, pricing, or how to book — or tap 'Talk to a human' and we'll pick it up from there."
     };
 
