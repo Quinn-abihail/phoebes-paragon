@@ -298,6 +298,138 @@
     max-width:64ch;
   }
 
+  /* ---------- Booking ---------- */
+  .booking{
+    background:var(--paper-200);
+    padding:clamp(64px,9vw,100px) 0;
+    border-top:1px solid rgba(30,26,16,0.08);
+    border-bottom:1px solid rgba(30,26,16,0.08);
+  }
+  .booking h2{ font-size:clamp(1.8rem,3vw,2.4rem); }
+  .booking > .wrap > p.lede{
+    color:#4A432E;
+    max-width:60ch;
+    margin-top:14px;
+  }
+  .booking-grid{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .field{ margin-bottom:20px; }
+  .field label{
+    display:block;
+    font-size:0.85rem;
+    font-weight:600;
+    color:#4A432E;
+    margin-bottom:8px;
+  }
+  .field input[type="text"],
+  .field input[type="date"],
+  .field textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid rgba(30,26,16,0.25);
+    background:var(--paper-100);
+    color:var(--ink-900);
+    font-family:'Work Sans', sans-serif;
+    font-size:0.95rem;
+  }
+  .field textarea{ resize:vertical; min-height:90px; }
+  .service-choices{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .service-choice{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:14px 16px;
+    border:1px solid rgba(30,26,16,0.25);
+    background:var(--paper-100);
+    cursor:pointer;
+  }
+  .service-choice input{
+    margin-top:3px;
+    accent-color:var(--rust-600);
+    width:16px; height:16px;
+    flex-shrink:0;
+  }
+  .service-choice .choice-title{ font-weight:600; }
+  .service-choice .choice-sub{
+    font-size:0.85rem;
+    color:#4A432E;
+    margin-top:2px;
+  }
+  .booking-note{
+    font-size:0.85rem;
+    color:#4A432E;
+    margin-top:-6px;
+    margin-bottom:22px;
+  }
+  #booking-error{
+    color:var(--rust-600);
+    font-size:0.9rem;
+    margin-bottom:16px;
+    display:none;
+  }
+  .booking-result{
+    margin-top:32px;
+    padding:24px;
+    background:var(--green-950);
+    color:var(--paper-100);
+    display:none;
+  }
+  .booking-result.show{ display:block; }
+  .booking-result h3{
+    font-size:1.1rem;
+    color:var(--paper-100);
+    margin-bottom:12px;
+  }
+  .booking-result pre{
+    white-space:pre-wrap;
+    font-family:'Work Sans', sans-serif;
+    font-size:0.92rem;
+    color:var(--paper-200);
+    background:rgba(246,240,227,0.06);
+    border:1px solid var(--line);
+    padding:16px;
+    margin:0 0 18px;
+  }
+  .result-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .result-socials{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .result-socials a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 16px;
+    border:1px solid var(--line);
+    text-decoration:none;
+    color:var(--paper-100);
+    font-size:0.9rem;
+  }
+  .result-socials a:hover, .result-socials a:focus-visible{
+    border-color:var(--gold-300);
+    background:rgba(199,154,43,0.08);
+  }
+  .result-socials svg{ width:16px; height:16px; }
+  .booking-result .hint{
+    font-size:0.85rem;
+    color:var(--paper-200);
+  }
+
   /* ---------- Contact ---------- */
   .contact{
     background:var(--green-950);
@@ -357,6 +489,7 @@
     .service-panels{ grid-template-columns:1fr; }
     .panel-shop{ border-left:none; border-top:1px solid rgba(30,26,16,0.14); }
     .price-row{ grid-template-columns:1.4fr 0.8fr 0.8fr; font-size:0.92rem; }
+    .booking-grid{ grid-template-columns:1fr; gap:28px; }
   }
 
   :focus-visible{ outline:2px solid var(--gold-500); outline-offset:2px; }
@@ -371,6 +504,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#booking">Book</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -384,7 +518,7 @@
       <p class="lede reveal d2">Phoebe's Paragon takes two things off your plate — literally and figuratively. A chef who cooks and delivers homemade meals to you, and a personal shopper who sources exactly what you asked for, nothing less.</p>
       <div class="hero-cta reveal d3">
         <a class="btn btn-solid" href="#pricing">See pricing</a>
-        <a class="btn btn-outline" href="#contact">Book a service</a>
+        <a class="btn btn-outline" href="#booking">Book a service</a>
       </div>
     </div>
     <div class="hero-split reveal d3">
@@ -490,6 +624,82 @@
   </div>
 </section>
 
+<section class="booking" id="booking">
+  <div class="wrap">
+    <h2>Tell us what you need.</h2>
+    <p class="lede">Pick the service (or both), fill in a few details, and we'll put together a booking summary you can send us on whichever platform you use.</p>
+
+    <div class="booking-grid">
+      <div>
+        <div class="field">
+          <label>What would you like booked?</label>
+          <div class="service-choices">
+            <label class="service-choice">
+              <input type="checkbox" name="service" value="Chef">
+              <span>
+                <span class="choice-title">Chef</span>
+                <span class="choice-sub">Homemade meals cooked &amp; delivered — breakfast, lunch, dinner, or an event.</span>
+              </span>
+            </label>
+            <label class="service-choice">
+              <input type="checkbox" name="service" value="Personal Shopper">
+              <span>
+                <span class="choice-title">Personal Shopper</span>
+                <span class="choice-sub">Groceries, gifts, or errands sourced and delivered to you.</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="bk-name">Your name</label>
+          <input type="text" id="bk-name" placeholder="e.g. Chidinma Okafor">
+        </div>
+
+        <div class="field">
+          <label for="bk-date">Preferred date</label>
+          <input type="date" id="bk-date">
+        </div>
+
+        <div class="field">
+          <label for="bk-details">Order details</label>
+          <textarea id="bk-details" placeholder="Meals wanted, or shopping list / errand, plus estimated goods value if relevant"></textarea>
+        </div>
+
+        <div id="booking-error">Pick at least one service to continue.</div>
+        <a class="btn btn-solid" id="bk-generate" href="#booking">Generate booking summary</a>
+      </div>
+
+      <div>
+        <p class="booking-note">Nothing here is sent automatically — we'll put your details into one clean message, and you choose where to send it.</p>
+
+        <div class="booking-result" id="bk-result">
+          <h3>Your booking summary</h3>
+          <pre id="bk-summary"></pre>
+          <div class="result-actions">
+            <a class="btn btn-outline" id="bk-copy" href="#booking" style="border-color:var(--paper-200);color:var(--paper-100);">Copy summary</a>
+          </div>
+          <p class="hint">Send it on:</p>
+          <div class="result-socials">
+            <a href="https://www.instagram.com/phoebe.paragon" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+              Instagram
+            </a>
+            <a href="https://www.tiktok.com/@phoebesparagon" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v10.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 3c.4 2.6 2.2 4.4 4.8 4.7"/></svg>
+              TikTok
+            </a>
+            <a href="https://x.com/phoebe2_phoebe" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l16 16M20 4L4 20"/></svg>
+              X
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="contact" id="contact">
   <div class="wrap">
     <h2>Let's get your order started.</h2>
@@ -517,6 +727,61 @@
     <div>Made with care.</div>
   </div>
 </footer>
+
+<script>
+  (function(){
+    var genBtn = document.getElementById('bk-generate');
+    var errorBox = document.getElementById('booking-error');
+    var resultBox = document.getElementById('bk-result');
+    var summaryEl = document.getElementById('bk-summary');
+    var copyBtn = document.getElementById('bk-copy');
+
+    function formatDate(value){
+      if(!value) return 'Not specified';
+      var d = new Date(value + 'T00:00:00');
+      if(isNaN(d)) return value;
+      return d.toLocaleDateString(undefined, { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    }
+
+    genBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      var services = Array.prototype.slice.call(document.querySelectorAll('input[name="service"]:checked')).map(function(el){ return el.value; });
+
+      if(services.length === 0){
+        errorBox.style.display = 'block';
+        resultBox.classList.remove('show');
+        return;
+      }
+      errorBox.style.display = 'none';
+
+      var name = document.getElementById('bk-name').value.trim() || 'Not provided';
+      var date = formatDate(document.getElementById('bk-date').value);
+      var details = document.getElementById('bk-details').value.trim() || 'Not provided';
+
+      var summary =
+        "Booking request — Phoebe's Paragon\n" +
+        "Service(s): " + services.join(' + ') + "\n" +
+        "Name: " + name + "\n" +
+        "Preferred date: " + date + "\n" +
+        "Details: " + details;
+
+      summaryEl.textContent = summary;
+      resultBox.classList.add('show');
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    copyBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      var text = summaryEl.textContent;
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function(){ copyBtn.textContent = 'Copy summary'; }, 1800);
+        });
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
