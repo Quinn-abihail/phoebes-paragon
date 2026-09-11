@@ -492,6 +492,133 @@
     .booking-grid{ grid-template-columns:1fr; gap:28px; }
   }
 
+  /* ---------- Chat widget ---------- */
+  .chat-toggle{
+    position:fixed;
+    bottom:24px; right:24px;
+    z-index:40;
+    width:58px; height:58px;
+    border-radius:50%;
+    background:var(--gold-500);
+    color:var(--green-950);
+    border:none;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    box-shadow:0 6px 20px rgba(15,42,30,0.35);
+    transition:background 0.2s ease, transform 0.15s ease;
+  }
+  .chat-toggle:hover, .chat-toggle:focus-visible{ background:var(--gold-300); }
+  .chat-toggle svg{ width:26px; height:26px; }
+
+  .chat-panel{
+    position:fixed;
+    bottom:94px; right:24px;
+    z-index:40;
+    width:320px;
+    max-width:calc(100vw - 32px);
+    background:var(--paper-100);
+    border:1px solid rgba(30,26,16,0.18);
+    box-shadow:0 12px 32px rgba(15,42,30,0.28);
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .chat-panel.open{ display:flex; }
+  .chat-head{
+    background:var(--green-950);
+    color:var(--paper-100);
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .chat-head .title{
+    font-family:'Fraunces', serif;
+    font-size:1rem;
+  }
+  .chat-head .sub{
+    font-size:0.75rem;
+    color:var(--gold-300);
+    margin-top:2px;
+  }
+  .chat-close{
+    background:none; border:none; color:var(--paper-200);
+    cursor:pointer; font-size:1.2rem; line-height:1;
+    padding:4px;
+  }
+  .chat-close:hover, .chat-close:focus-visible{ color:var(--gold-300); }
+  .chat-body{
+    padding:14px 16px;
+    height:300px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    background:var(--paper-100);
+  }
+  .chat-msg{
+    max-width:84%;
+    padding:9px 12px;
+    font-size:0.88rem;
+    line-height:1.4;
+  }
+  .chat-msg.bot{
+    align-self:flex-start;
+    background:var(--paper-200);
+    color:var(--ink-900);
+  }
+  .chat-msg.user{
+    align-self:flex-end;
+    background:var(--green-950);
+    color:var(--paper-100);
+  }
+  .chat-quick{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding:0 16px 12px;
+  }
+  .chat-quick button{
+    font-size:0.78rem;
+    padding:6px 10px;
+    border:1px solid rgba(30,26,16,0.25);
+    background:var(--paper-100);
+    cursor:pointer;
+    color:var(--ink-900);
+  }
+  .chat-quick button:hover, .chat-quick button:focus-visible{
+    border-color:var(--rust-600);
+    color:var(--rust-600);
+  }
+  .chat-input-row{
+    display:flex;
+    border-top:1px solid rgba(30,26,16,0.18);
+  }
+  .chat-input-row input{
+    flex:1;
+    border:none;
+    padding:12px 14px;
+    font-family:'Work Sans', sans-serif;
+    font-size:0.88rem;
+    background:var(--paper-100);
+    color:var(--ink-900);
+  }
+  .chat-input-row input:focus{ outline:none; }
+  .chat-input-row button{
+    background:var(--gold-500);
+    color:var(--green-950);
+    border:none;
+    padding:0 18px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .chat-input-row button:hover, .chat-input-row button:focus-visible{ background:var(--gold-300); }
+
+  @media (max-width:480px){
+    .chat-panel{ right:16px; bottom:84px; }
+    .chat-toggle{ right:16px; bottom:16px; }
+  }
+
   :focus-visible{ outline:2px solid var(--gold-500); outline-offset:2px; }
 </style>
 </head>
@@ -781,7 +908,118 @@
       }
     });
   })();
+
+  // ---- Chat widget ----
+  (function(){
+    var toggle = document.getElementById('chat-toggle');
+    var panel = document.getElementById('chat-panel');
+    var closeBtn = document.getElementById('chat-close');
+    var body = document.getElementById('chat-body');
+    var input = document.getElementById('chat-input');
+    var sendBtn = document.getElementById('chat-send');
+    var quickWrap = document.getElementById('chat-quick');
+    var greeted = false;
+
+    var replies = {
+      greeting: "Hi! Welcome to Phoebe's Paragon 👋 I'm an automated assistant — ask me about our services, pricing, or how to book, and I'll point you the right way. For anything more specific, I can connect you with a real person too.",
+      services: "We offer two services: a Chef who cooks and delivers homemade meals for breakfast, lunch, dinner, and events — and a Personal Shopper who handles groceries, gifts, and errands for you. You can book either one, or both, in the Book section of this site.",
+      pricing: "For Personal Shopper & Cook orders, our service fee scales with the value of goods handled: 15% up to ₦150,000, rising to 35% for orders up to ₦1,000,000 — plus 7.5% VAT on top. Check the Pricing section on this page for the full table.",
+      booking: "You can book directly on this site — scroll to the Book section, pick Chef and/or Personal Shopper, fill in your details, and it'll generate a summary you can send us on Instagram, TikTok, or X.",
+      contact: "Of course — the fastest way to reach a real person is Instagram (@phoebe.paragon). You can also find us on TikTok and X (@phoebe2_phoebe), all linked in the Contact section below.",
+      fallback: "I'm just a simple assistant so I might not have caught that. Try asking about our services, pricing, or how to book — or tap 'Talk to a human' and we'll pick it up from there."
+    };
+
+    function addMessage(text, who){
+      var msg = document.createElement('div');
+      msg.className = 'chat-msg ' + who;
+      msg.textContent = text;
+      body.appendChild(msg);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function respond(userText){
+      var t = userText.toLowerCase();
+      var reply;
+      if(/chef|meal|food|cook|breakfast|lunch|dinner|shop|grocer|errand|service/.test(t)){
+        reply = replies.services;
+      } else if(/price|cost|fee|charge|vat|how much/.test(t)){
+        reply = replies.pricing;
+      } else if(/book|order|schedule|appointment/.test(t)){
+        reply = replies.booking;
+      } else if(/human|person|talk|call|whatsapp|instagram|contact|dm/.test(t)){
+        reply = replies.contact;
+      } else if(/hi|hello|hey|good morning|good afternoon|good evening/.test(t)){
+        reply = replies.greeting;
+      } else {
+        reply = replies.fallback;
+      }
+      setTimeout(function(){ addMessage(reply, 'bot'); }, 450);
+    }
+
+    function openChat(){
+      panel.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      if(!greeted){
+        addMessage(replies.greeting, 'bot');
+        greeted = true;
+      }
+      input.focus();
+    }
+
+    toggle.addEventListener('click', function(){
+      if(panel.classList.contains('open')){
+        panel.classList.remove('open');
+      } else {
+        openChat();
+      }
+    });
+    closeBtn.addEventListener('click', function(){ panel.classList.remove('open'); });
+
+    sendBtn.addEventListener('click', function(){
+      var val = input.value.trim();
+      if(!val) return;
+      addMessage(val, 'user');
+      respond(val);
+      input.value = '';
+    });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ sendBtn.click(); }
+    });
+    quickWrap.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-q]');
+      if(!btn) return;
+      var key = btn.getAttribute('data-q');
+      addMessage(btn.textContent, 'user');
+      setTimeout(function(){ addMessage(replies[key], 'bot'); }, 350);
+    });
+  })();
 </script>
+
+<!-- Chat widget -->
+<button class="chat-toggle" id="chat-toggle" aria-label="Open chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 1 1-3.5-6.6"/><path d="M21 3v6h-6"/></svg>
+</button>
+
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-head">
+    <div>
+      <div class="title">Phoebe's Paragon</div>
+      <div class="sub">Usually replies right away</div>
+    </div>
+    <button class="chat-close" id="chat-close" aria-label="Close chat">✕</button>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-quick" id="chat-quick">
+    <button data-q="services">Our services</button>
+    <button data-q="pricing">Pricing</button>
+    <button data-q="booking">How to book</button>
+    <button data-q="contact">Talk to a human</button>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chat-input" placeholder="Type a message...">
+    <button id="chat-send">Send</button>
+  </div>
+</div>
 
 </body>
 </html>
