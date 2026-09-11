@@ -48,17 +48,49 @@
 
   /* ---------- Flyer banner ---------- */
   .flyer-banner{
+    position:relative;
     background: linear-gradient(180deg, var(--green-950), var(--black-950));
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px 16px;
+    overflow:hidden;
   }
   .flyer-banner img{
-    width:auto;
-    max-width:100%;
-    max-height:min(26vw, 230px);
+    width:100%;
+    height:clamp(120px, 22vw, 220px);
+    object-fit:cover;
+    object-position:center 30%;
     display:block;
+    opacity:0.55;
+  }
+  .flyer-banner .overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    flex-direction:column;
+    gap:6px;
+    padding:0 20px;
+    background:linear-gradient(90deg, rgba(31,16,51,0.75), rgba(11,11,13,0.35));
+  }
+  .flyer-banner .overlay .brand{
+    font-family:'Fraunces', serif;
+    font-size:clamp(1.3rem, 3.4vw, 2.1rem);
+    color:var(--gold-300);
+    font-weight:700;
+  }
+  .flyer-banner .overlay .tag{
+    font-size:clamp(0.75rem, 1.6vw, 0.95rem);
+    color:var(--paper-100);
+  }
+  .flyer-banner .overlay .cta{
+    margin-top:4px;
+    display:inline-flex;
+    padding:8px 18px;
+    background:var(--gold-500);
+    color:var(--green-950);
+    font-weight:700;
+    font-size:clamp(0.75rem,1.5vw,0.9rem);
+    text-decoration:none;
   }
 
   /* ---------- Nav ---------- */
@@ -640,7 +672,12 @@
 <body>
 
 <div class="flyer-banner">
-  <img src="flyer.png" width="1152" height="2048" alt="Phoebe's Paragon — food is home. Personal Shopper and Homemade Food Delivery">
+  <img src="flyer_landscape.png" width="1152" height="590" alt="Phoebe's Paragon — Personal Shopper and Homemade Food Delivery">
+  <div class="overlay">
+    <div class="brand">Phoebe's Paragon</div>
+    <div class="tag">food is home — personal chef &amp; personal shopper</div>
+    <a class="cta" href="#booking">Book Now &amp; Taste the Home!</a>
+  </div>
 </div>
 
 <nav class="nav">
