@@ -355,6 +355,39 @@
     max-width:64ch;
   }
 
+  /* ---------- Gallery ---------- */
+  .gallery{
+    background:var(--paper-200);
+    padding:clamp(64px,9vw,100px) 0;
+    border-top:1px solid rgba(30,26,16,0.08);
+    border-bottom:1px solid rgba(30,26,16,0.08);
+  }
+  .gallery h2{ font-size:clamp(1.8rem,3vw,2.4rem); }
+  .gallery > .wrap > p.lede{
+    color:#4A432E;
+    max-width:60ch;
+    margin-top:14px;
+  }
+  .gallery-grid{
+    margin-top:36px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+    gap:16px;
+  }
+  .gallery-item{
+    position:relative;
+    aspect-ratio:9/16;
+    background:#000;
+    overflow:hidden;
+    border:1px solid rgba(30,26,16,0.14);
+  }
+  .gallery-item video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
   /* ---------- Reviews ---------- */
   .reviews{
     padding:clamp(64px,9vw,100px) 0;
@@ -760,6 +793,7 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#booking">Book</a></li>
       <li><a href="#reviews">Reviews</a></li>
@@ -833,6 +867,85 @@
           <li>Errands and pickups</li>
           <li>Itemised receipts on every order</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <h2>See it in action.</h2>
+    <p class="lede">A few clips from real orders — meals being prepped, packed, and delivered.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-1.jpg" playsinline>
+          <source src="gallery/video-1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-2.jpg" playsinline>
+          <source src="gallery/video-2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-3.jpg" playsinline>
+          <source src="gallery/video-3.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-4.jpg" playsinline>
+          <source src="gallery/video-4.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-5.jpg" playsinline>
+          <source src="gallery/video-5.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-6.jpg" playsinline>
+          <source src="gallery/video-6.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-7.jpg" playsinline>
+          <source src="gallery/video-7.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-8.jpg" playsinline>
+          <source src="gallery/video-8.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-9.jpg" playsinline>
+          <source src="gallery/video-9.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-10.jpg" playsinline>
+          <source src="gallery/video-10.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-11.jpg" playsinline>
+          <source src="gallery/video-11.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-12.jpg" playsinline>
+          <source src="gallery/video-12.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-13.jpg" playsinline>
+          <source src="gallery/video-13.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item">
+        <video controls preload="none" poster="gallery/posters/video-14.jpg" playsinline>
+          <source src="gallery/video-14.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
